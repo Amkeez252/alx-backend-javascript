@@ -1,2 +1,2 @@
-# Short Specializations
+# Specializations
 **alx-backend-javascript**
