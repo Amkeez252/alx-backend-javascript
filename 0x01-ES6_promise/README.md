@@ -25,12 +25,15 @@
 ```
 curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
 sudo bash nodesource_setup.sh
-sudo apt install nodejs -y```
+sudo apt install nodejs -y
+```
 
-```$ nodejs -v
+```
+$ nodejs -v
 v12.11.1
 $ npm -v
-6.11.3```
+6.11.3
+```
 
 ### Install Jest, Babel, and ESLint in your project directory
 	* Install Jest using: npm install --save-dev jest
@@ -60,6 +63,7 @@ $ npm -v
   }
 }
 ```
+
 * utils.js
 Use when you get to tasks requiring uploadPhoto and createUser.
 file content
@@ -79,6 +83,7 @@ export function createUser() {
   });
 }
 ```
+
 * .eslintrc.js
 file content
 ```
@@ -118,6 +123,7 @@ module.exports = {
   ]
 };
 ```
+
 * and…
 Don’t forget to run $ npm install when you have the package.json
 
@@ -128,6 +134,7 @@ Don’t forget to run $ npm install when you have the package.json
   body: 'photo-profile-1',
 }
 ```
+
 createUser returns a response with the format
 ```
 {
@@ -157,13 +164,14 @@ Using the prototype below, return a promise. The parameter is a boolean.
 ```getFullResponseFromAPI(success)```
 When the argument is
 	* true
-		* resolve the promise by passing an object with 2 attributes
+		- resolve the promise by passing an object with 2 attributes
 			* status: 200
 			* body: 'Success'
 	* false
 		- reject the promise with an error object with the message The fake API is not working currently
 Try testing it out for yourself
 ```
+
 bob@dylan:~$ cat 1-main.js
 import getFullResponseFromAPI from './1-promise';
 
