@@ -1,6 +1,3 @@
-
-//This function create and return an array named queue.
-
 export default function guardrail(mathFunction) {
   const queue = [];
   let mathFunc;

@@ -4,7 +4,6 @@ import uploadPhoto from './5-photo-reject';
 export default function handleProfileSignup(firstName, lastName, fileName) {
   const promises = [signUpUser(firstName, lastName),
     uploadPhoto(fileName)];
-// The function should call the two other functions.
 
   return Promise.allSettled(promises)
     .then((values) => {
