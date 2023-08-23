@@ -12,7 +12,7 @@ const readFileAsync = (filename, callback) => {
 };
 
 const app = http.createServer((req, res) => {
-  const url = req.url;
+  const { url } = req;
 
   if (url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -28,20 +28,20 @@ const app = http.createServer((req, res) => {
       }
 
       const lines = data.split('\n');
-      const students = lines.filter(line => line.trim() !== '');
+      const students = lines.filter((line) => line.trim() !== '');
 
       const totalStudents = students.length;
-      const csStudents = students.filter(student => student.endsWith(',CS')).length;
-      const sweStudents = students.filter(student => student.endsWith(',SWE')).length;
+      const csStudents = students.filter((student) => student.endsWith(',CS')).length;
+      const sweStudents = students.filter((student) => student.endsWith(',SWE')).length;
 
       const csStudentList = students
-        .filter(student => student.endsWith(',CS'))
-        .map(student => student.split(',')[0])
+        .filter((student) => student.endsWith(',CS'))
+        .map((student) => student.split(',')[0])
         .join(', ');
 
       const sweStudentList = students
-        .filter(student => student.endsWith(',SWE'))
-        .map(student => student.split(',')[0])
+        .filter((student) => student.endsWith(',SWE'))
+        .map((student) => student.split(',')[0])
         .join(', ');
 
       const response = `
@@ -65,4 +65,3 @@ app.listen(1245, () => {
 });
 
 module.exports = app;
-
