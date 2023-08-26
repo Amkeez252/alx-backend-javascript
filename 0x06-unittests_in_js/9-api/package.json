@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "API for learning basic integration testing in NodeJS.",
     "main": "api.js",
-    "author": "Ejie Ebuka <tripleeoliver@gmail.com>",
+    "author": "Auwal Abdulmalik <Amkeez252>",
     "private": true,
     "license": "MIT",
     "scripts": {
@@ -20,12 +20,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/triplee12/alx-backend-javascript"
+        "url": "https://github.com/Amkeez252/alx-backend-javascript"
     },
     "bugs": {
-        "url": "https://github.com/triplee12/alx-backend-javascript/issues"
+        "url": "https://github.com/Amkeez252/alx-backend-javascript/issues"
     },
-    "homepage": "https://github.com/triplee12/alx-backend-javascript/tree/main/0x06-unittests_in_js/9-api",
+    "homepage": "https://github.com/Amkeez252/alx-backend-javascript/tree/main/0x06-unittests_in_js/9-api",
     "engines": {
         "node": "16.x",
         "npm": "8.x",

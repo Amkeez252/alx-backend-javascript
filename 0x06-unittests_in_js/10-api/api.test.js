@@ -1,25 +1,107 @@
-const express = require('express');
-const app = express();
-const port = 7865;
+const chai = require('chai');
+const expect = chai.expect;
+const request = require('request');
 
-app.use(express.json());
+describe('test the API', () => {
+    it('test the API with localost:7865', (done) => {
+        request('http://localhost:7865', 'GET', (er, rs, bd) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(200);
+        expect(bd).to.equal('Welcome to the payment system');
+        });
+        done();
+    });
 
-// Endpoint: GET /available_payments
-app.get('/available_payments', (req, res) => {
-  res.status(200).json({
-    payment_methods: {
-      credit_cards: true,
-      paypal: false,
-    },
-  });
-});
+    it('test the API with cart/3', (done) => {
+        request('http://localhost:7865/cart/3', 'GET', (er, rs, bd) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(200);
+        expect(bd).to.equal('Payment methods for cart 3');
+        });
+        done();
+    });
 
-// Endpoint: POST /login
-app.post('/login', (req, res) => {
-  const { userName } = req.body;
-  res.status(200).send(`Welcome ${userName}`);
-});
+    it('test the API with cart/234', (done) => {
+        request('http://localhost:7865/cart/234', 'GET', (er, rs, bd) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(200);
+        expect(bd).to.equal('Payment methods for cart 234');
+        });
+        done();
+    });
 
-app.listen(port, () => {
-  console.log(`API available on localhost port ${port}`);
+    it('test the API with cart/abc', (done) => {
+        request('http://localhost:7865/cart/abc', 'GET', (er, rs) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(404);
+        });
+        done();
+    });
+
+    it('test the API with cart/2bc', (done) => {
+        request('http://localhost:7865/cart/2bc', 'GET', (er, rs) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(404);
+        });
+        done();
+    });
+
+    it('test the API with cart/23a', (done) => {
+        request('http://localhost:7865/cart/23a', 'GET', (er, rs) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(404);
+        });
+        done();
+    });
+
+    it('test the API with cart', (done) => {
+        request('http://localhost:7865/cart', 'GET', (er, rs) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(404);
+        });
+        done();
+    });
+
+    it('test the API /login with some body', (done) => {
+        const prm = {
+        url: 'http://localhost:7865/login',
+        method: 'POST',
+        json: {
+            userName: 'Holberton',
+        },
+        };
+        request(prm, (er, rs, bd) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(200);
+        expect(bd).to.equal('Welcome Holberton');
+        });
+        done();
+    });
+
+    it('test the API /login with no body', (done) => {
+        const prm = {
+        url: 'http://localhost:7865/login',
+        method: 'POST',
+        
+        };
+        request(prm, (er, rs, bd) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(200);
+        expect(bd).to.equal('Welcome undefined');
+        });
+        done();
+    });
+
+    it('test the API /available_payments', (done) => {
+        const prm = {
+        url: 'http://localhost:7865/available_payments',
+        method: 'GET',
+        };
+        request(prm, (er, rs, bd) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(200);
+        expect(bd).to.equal('{"payment_methods":{"credit_cards":true,"paypal":false}}');
+        });
+        done();
+    });
 });
