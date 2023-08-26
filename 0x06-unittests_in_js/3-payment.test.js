@@ -1,17 +1,18 @@
-const {describe, it} = require("mocha");
+const chai = require('chai');
+const expect = chai.expect;
+
 const sinon = require('sinon');
+const utils = require('./utils');
 const sendPaymentRequestToApi = require('./3-payment');
-const Utils = require('./utils');
-const assert = require("assert");
 
 describe('sendPaymentRequestToApi', () => {
-  it('should call Utils.calculateNumber with correct arguments', () => {
-    const calculateSpy = sinon.spy(Utils, 'calculateNumber');
-    sendPaymentRequestToApi(100, 20);
+    it('test the send payment request method', () => {
+        const funcspy = sinon.spy(utils, 'calculateNumber');
+        const reqApi = sendPaymentRequestToApi(100, 20);
 
-    sinon.assert.calledOnce(calculateSpy);
-    sinon.assert.calledWithExactly(calculateSpy, 'SUM', 100, 20);
+        expect(funcspy.calledOnceWithExactly('SUM', 100, 20)).to.equal(true);
+        expect(utils.calculateNumber('SUM', 100, 20)).to.equal(reqApi);
 
-    calculateSpy.restore();
-  });
+        funcspy.restore();
+    });
 });
