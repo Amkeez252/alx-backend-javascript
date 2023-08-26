@@ -1,43 +1,66 @@
-const request = require("request");
-const {describe, it} = require("mocha");
-const expect = require("chai").expect;
+const chai = require('chai');
+const expect = chai.expect;
+const request = require('request');
 
-describe("Index page", function() {
-    const options = {
-	url: "http://localhost:7865/",
-	method: "GET"
-    }
-    it("check correct status code", function(done) {
-	request(options, function(err, res, body) {
-	    expect(res.statusCode).to.equal(200);
-	    done();
-	});
+describe('test the API', () => {
+    it('test the API with localost:7865', (done) => {
+        request('http://localhost:7865', 'GET', (er, rs, bd) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(200);
+        expect(bd).to.equal('Welcome to the payment system');
+        });
+        done();
     });
-    it("check correct content", function(done) {
-	request(options, function(err, res, body) {
-	    expect(body).to.equal("Welcome to the payment system");
-	    done();
-	});
-    });
-});
 
-describe("Cart page", function() {
-    it("check correct status code for correct url", function(done) {
-	request.get("http://localhost:7865/cart/12", function(err, res, body) {
-	    expect(res.statusCode).to.equal(200);
-	    done();
-	});
+    it('test the API with cart/3', (done) => {
+        request('http://localhost:7865/cart/3', 'GET', (er, rs, bd) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(200);
+        expect(bd).to.equal('Payment methods for cart 3');
+        });
+        done();
     });
-    it("check correct content for correct url", function(done) {
-	request.get("http://localhost:7865/cart/12", function(err, res, body) {
-	    expect(body).to.contain("Payment methods for cart 12");
-	    done();
-	});
+
+    it('test the API with cart/234', (done) => {
+        request('http://localhost:7865/cart/234', 'GET', (er, rs, bd) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(200);
+        expect(bd).to.equal('Payment methods for cart 234');
+        });
+        done();
     });
-    it("check correct status code for incorrect url", function(done) {
-	request.get("http://localhost:7865/cart/kim", function(err, res, body) {
-	    expect(res.statusCode).to.equal(404);
-	    done();
-	});
+
+    it('test the API with cart/abc', (done) => {
+        request('http://localhost:7865/cart/abc', 'GET', (er, rs) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(404);
+        });
+        done();
     });
+
+    it('test the API with cart/2bc', (done) => {
+        request('http://localhost:7865/cart/2bc', 'GET', (er, rs) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(404);
+        });
+        done();
+    });
+
+    it('test the API with cart/23a', (done) => {
+        request('http://localhost:7865/cart/23a', 'GET', (er, rs) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(404);
+        });
+        done();
+    });
+
+    it('test the API with cart', (done) => {
+        request('http://localhost:7865/cart', 'GET', (er, rs) => {
+        if (er) throw er;
+        expect(rs.statusCode).to.equal(404);
+        });
+        done();
+    });
+
+
 });
